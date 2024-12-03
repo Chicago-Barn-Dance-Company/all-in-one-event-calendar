@@ -294,7 +294,15 @@ class Ai1ec_Calendar_View_Agenda extends Ai1ec_Calendar_View_Abstract {
             $event_props['instance_id']         = $event->get( 'instance_id' );
             $event_props['venue']               = $event->get( 'venue' );
             $event_props['ticket_url']          = $event->get( 'ticket_url' );
-            $event_props['filtered_title']      = $event->get_runtime( 'filtered_title' );
+	    
+	    $caller = get_post_meta($event->get('post_id'),'Caller',true);
+	    $band = get_post_meta($event->get('post_id'),'Band',true);
+	    if (empty($band) || empty($caller)) {
+	       $event_props['filtered_title'] = $event->get('filtered_title');
+	    } else {
+	       $event_props['filtered_title'] = "{$band} with {$caller}";
+	    }
+
             $event_props['edit_post_link']      = $event->get_runtime( 'edit_post_link' );
             $event_props['content_img_url']     = $event->get_runtime( 'content_img_url' );
             $event_props['filtered_content']    = $event->get_runtime( 'filtered_content' );
