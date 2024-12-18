@@ -55,19 +55,7 @@
 												data-ticket-url="{{ event.ticket_url | e( 'html_attr' ) }}"
 											{% endif %}>
 											<span class="ai1ec-event-title">
-												{% if event.custom.Band is not empty %}
-													{% for band in event.custom.Band %}
-														{{ band | raw }}
-														{% if not loop.last %} and {%endif%}
-													{%- endfor %}
-													with
-													{% for caller in event.custom.Caller %}
-														{{ caller | raw }}
-														{% if not loop.last %} and {%endif%}
-													{%- endfor %}
-												{% else %}
-													{{ event.filtered_title | raw }}
-												{% endif %}
+												{{ event.filtered_title | raw }}
 											</span>
 											{% if not event.is_allday %}
 												<span class="ai1ec-event-time">
@@ -89,21 +77,8 @@
 										{% endif %}
 										<span class="ai1ec-popup-title">
 											<a class="ai1ec-load-event"
-												href="{{ event.permalink | e( 'html_attr' ) }}">
-												{% if event.custom.Band is not empty %}
-													{% for band in event.custom.Band %}
-														{{ band | raw }}
-														{% if not loop.last %} and {%endif%}
-													{%- endfor %}
-													with
-													{% for caller in event.custom.Caller %}
-														{{ caller | raw }}
-														{% if not loop.last %} and {%endif%}
-													{%- endfor %}
-												{% else %}
-													{{ event.filtered_title | raw }}
-												{% endif %}
-											</a>
+												href="{{ event.permalink | e( 'html_attr' ) }}"
+												>{{ event.filtered_title | raw }}</a>
 											{% if show_location_in_title and event.venue %}
 												<span class="ai1ec-event-location"
 													>{{ text_venue_separator | format( event.venue ) }}</span>

@@ -38,19 +38,7 @@
 										<i class="ai1ec-fa ai1ec-fa-plus-circle ai1ec-fa-lg"></i>
 									</div>
 									<span class="ai1ec-event-title">
-										{% if event.custom.Band is not empty %}
-											{% for band in event.custom.Band %}
-												{{ band | raw }}
-												{% if not loop.last %} and {%endif%}
-											{%- endfor %}
-											with
-											{% for caller in event.custom.Caller %}
-												{{ caller | raw }}
-												{% if not loop.last %} and {%endif%}
-											{%- endfor %}
-										{% else %}
-											{{ event.filtered_title | raw }}
-										{% endif %}
+										{{ event.filtered_title | raw }}
 										{% if show_location_in_title and event.venue is not empty %}
 											<span class="ai1ec-event-location"
 												>{{ text_venue_separator | format( event.venue ) }}</span>

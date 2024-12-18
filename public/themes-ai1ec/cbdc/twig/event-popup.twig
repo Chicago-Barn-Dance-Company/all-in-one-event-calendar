@@ -7,21 +7,9 @@
 	{% endif %}
 
 	<span class="ai1ec-popup-title">
-		<a href="{{ event.permalink | e('html_attr') }}" class="ai1ec-load-event">
-			{% if event.custom.Band is not empty %}
-				{% for band in event.custom.Band %}
-					{{ band | raw }}
-					{% if not loop.last %} and {%endif%}
-				{%- endfor %}
-				with
-				{% for caller in event.custom.Caller %}
-					{{ caller | raw }}
-					{% if not loop.last %} and {%endif%}
-				{%- endfor %}
-			{% else %}
-				{{ event.filtered_title | raw }}
-			{% endif %}
-		</a>
+		<a href="{{ event.permalink | e('html_attr') }}"
+		   class="ai1ec-load-event"
+			>{{ event.filtered_title | truncate | raw }}</a>
 		{% if show_location_in_title and event.venue is not empty %}
 			<span class="ai1ec-event-location"
 				>{{ text_venue_separator | format( event.venue ) }}</span>
