@@ -113,6 +113,9 @@ class Ai1ec_View_Event_Single extends Ai1ec_Base {
             'title'                   => $event->get( 'post' )->post_title,
             'description'             => $event->get( 'post' )->post_content,
             'custom'                  => get_post_custom($event->get('post_id')),
+            'caller'                  => get_post_meta($event->get('post_id'), 'Caller', true),
+            'band'                    => get_post_meta($event->get('post_id'), 'Band', true),
+            'lesson'                  => get_post_meta($event->get('post_id'), 'Lesson', true),
 );
 
         if (

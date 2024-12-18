@@ -78,6 +78,30 @@
 			</div>
 		</div>
 	{% endif %}
+	{% if band %}
+		<div class="ai1ec-location ai1ec-row">
+			<div class="ai1ec-field-label {{ col1 }}">Band:</div>
+			<div class="ai1ec-field-value {{ col2 }} p-location">
+				{{ band | raw }}
+			</div>
+		</div>
+	{% endif %}
+	{% if caller %}
+		<div class="ai1ec-location ai1ec-row">
+			<div class="ai1ec-field-label {{ col1 }}">Caller:</div>
+			<div class="ai1ec-field-value {{ col2 }} p-location">
+				{{ caller | raw }}
+			</div>
+		</div>
+	{% endif %}
+	{% if lesson %}
+		<div class="ai1ec-location ai1ec-row">
+			<div class="ai1ec-field-label {{ col1 }}">Lesson:</div>
+			<div class="ai1ec-field-value {{ col2 }} p-location">
+				{{ lesson | raw }}
+			</div>
+		</div>
+	{% endif %}
 
 	{% if ( cost is not empty or event.is_free ) and tickets_block is empty %}
 		<div class="ai1ec-cost ai1ec-row">
