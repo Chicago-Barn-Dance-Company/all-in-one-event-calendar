@@ -356,8 +356,8 @@ class Ai1ec_Calendar_View_Month extends Ai1ec_Calendar_View_Abstract {
             );
             $events = array();
             foreach ( $days_events[$i] as $evt ){
-	    	$band = get_post_meta($evt->get('post_id'), 'Band',true);
-		$caller = get_post_meta($evt->get('post_id'), 'Caller',true);
+                $band = get_post_meta($evt->get('post_id'), 'Band', true);
+                $caller = get_post_meta($evt->get('post_id'), 'Caller', true);
                 $event_data = array(
                     'filtered_title'     => (empty($band) || empty($caller)) ? $evt->get_runtime( 'filtered_title' ) : "$band with $caller",
                     'post_excerpt'       => $evt->get_runtime( 'post_excerpt' ),

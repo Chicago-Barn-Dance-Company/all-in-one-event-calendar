@@ -340,10 +340,10 @@ class Ai1ec_Calendar_View_Week extends Ai1ec_Calendar_View_Abstract {
 
             foreach ( $all_events[$day_date] as $event_type => &$events ) {
                 foreach ( $events as &$evt ) {
-  		  $band = get_post_meta($evt->get('post_id'), 'Band',true);
-		  $caller = get_post_meta($evt->get('post_id'), 'Caller',true);
-                  $event = array(
-                    	'filtered_title'     => (empty($band) || empty($caller)) ? $evt->get_runtime( 'filtered_title' ) : "$band with $caller",
+                    $band = get_post_meta($evt->get('post_id'), 'Band',true);
+                    $caller = get_post_meta($evt->get('post_id'), 'Caller',true);
+                    $event = array(
+                        'filtered_title'     => (empty($band) || empty($caller)) ? $evt->get_runtime( 'filtered_title' ) : "$band with $caller",
                         'post_excerpt'       => $evt->get_runtime( 'post_excerpt' ),
                         'color_style'        => $evt->get_runtime( 'color_style' ),
                         'category_colors'    => $evt->get_runtime( 'category_colors' ),
