@@ -218,7 +218,9 @@ class Ai1ec_Command_Clone extends Ai1ec_Command {
 	    // stop the url when we get a -# to sanitize the very long slugs
 	    $post_name_no_dash = preg_split("/-[0-9]/",$post_name);
 	    // append the post id to give us a unique page identifier
-	    $post_name = "$post_name_no_dash[0].$new_post_id";
+	    if (sizeof($post_name_no_dash) > 0) {
+	    	    $post_name = "$post_name_no_dash[0].$new_post_id";
+	    }
 
             $new_post = array();
             $new_post['ID']        = $new_post_id;
