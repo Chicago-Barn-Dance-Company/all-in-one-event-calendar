@@ -56,6 +56,10 @@
 											{% endif %}>
 											<span class="ai1ec-event-title">
 												{{ event.filtered_title | raw }}
+												{% if show_location_in_title and event.location_alias %}
+													<span class="ai1ec-event-location"
+														>{{ text_venue_separator | format( event.location_alias ) }}</span>
+												{% endif %}
 											</span>
 											{% if not event.is_allday %}
 												<span class="ai1ec-event-time">
