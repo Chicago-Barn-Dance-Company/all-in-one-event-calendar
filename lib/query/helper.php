@@ -156,7 +156,7 @@ class Ai1ec_Query_Helper {
         $elements = preg_split(
             '/\$(\d+)/',
             $query,
-            null,
+            -1,
             PREG_SPLIT_DELIM_CAPTURE
         );
         $result = '';

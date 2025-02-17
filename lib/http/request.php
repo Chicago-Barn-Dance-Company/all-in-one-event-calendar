@@ -9,6 +9,7 @@
  * @package    AI1EC
  * @subpackage AI1EC.Http
  */
+#[AllowDynamicProperties]
 class Ai1ec_Http_Request {
 
     /**

@@ -340,7 +340,7 @@ class Ai1ec_Javascript_Controller {
     public function load_admin_js() {
         // Initialize dashboard view
 
-        $script_to_load = FALSE;
+        $script_to_load = [];
         if ( $this->are_we_on_calendar_feeds_page() === TRUE ) {
             // Load script for the importer plugins
             $script_to_load[] = self::CALENDAR_FEEDS_PAGE;
@@ -374,8 +374,8 @@ class Ai1ec_Javascript_Controller {
         ) {
             $script_to_load[] = self::TICKETING;
         }
-        if ( false === $script_to_load ) {
-            $script_to_load[] = apply_filters( 'ai1ec_backend_js', self::LOAD_ONLY_BACKEND_SCRIPTS );
+        if ( !$script_to_load ) {
+	    $script_to_load[] = apply_filters( 'ai1ec_backend_js', self::LOAD_ONLY_BACKEND_SCRIPTS );
         }
         foreach ($script_to_load as $value) {
             $this->add_link_to_render_js( $value, true );

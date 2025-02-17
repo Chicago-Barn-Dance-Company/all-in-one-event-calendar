@@ -9,6 +9,7 @@
  * @package    AI1EC
  * @subpackage AI1EC.Scheduling
  */
+ #[AllowDynamicProperties]
 class Ai1ec_Scheduling_Utility {
 
     /**

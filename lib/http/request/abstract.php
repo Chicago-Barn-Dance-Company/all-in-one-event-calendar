@@ -195,7 +195,7 @@ abstract class Ai1ec_Abstract_Query extends Ai1ec_Base implements arrayaccess {
     /**
      * @overload ArrayAccess::offsetExists()
      */
-    public function offsetExists( $offset ) {
+    public function offsetExists( $offset ): bool {
         if ( false === $this->get( $offset ) ) {
             return false;
         }
@@ -205,21 +205,21 @@ abstract class Ai1ec_Abstract_Query extends Ai1ec_Base implements arrayaccess {
     /**
      * @overload ArrayAccess::offsetGet()
      */
-    public function offsetGet( $offset ) {
+    public function offsetGet( $offset ):mixed {
         return $this->get_scalar( $offset );
     }
 
     /**
      * @overload ArrayAccess::offsetSet()
      */
-    public function offsetSet( $offset, $value ) {
+    public function offsetSet( $offset, $value ): void {
         // not implemented and will not be
     }
 
     /**
      * @overload ArrayAccess::offsetUnset()
      */
-    public function offsetUnset( $offset ) {
+    public function offsetUnset( $offset ): void {
         // not implemented and will not be
     }
 

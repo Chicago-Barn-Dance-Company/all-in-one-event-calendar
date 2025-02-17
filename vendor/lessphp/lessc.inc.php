@@ -35,6 +35,7 @@ if ( ! class_exists( 'lessc' ) ) {
      * The `lessc_formatter` takes a CSS tree, and dumps it to a formatted string,
      * handling things like indentation.
      */
+    #[AllowDynamicProperties]
     class lessc {
         static public $VERSION = "v0.4.0";
         static protected $TRUE = array("keyword", "true");
@@ -1212,7 +1213,7 @@ if ( ! class_exists( 'lessc' ) ) {
                         $name = $name . ": ";
                     }
 
-                    $this->throwError("${name}expecting $expectedArgs arguments, got $numValues");
+                    $this->throwError("{$name}expecting $expectedArgs arguments, got $numValues");
             }
 
                 return $values;
@@ -1557,7 +1558,7 @@ if ( ! class_exists( 'lessc' ) ) {
             }
 
             // type based operators
-            $fname = "op_${ltype}_${rtype}";
+            $fname = "op_{$ltype}_{$rtype}";
             if (is_callable(array($this, $fname))) {
                 $out = $this->$fname($op, $left, $right);
                 if (!is_null($out)) return $out;
