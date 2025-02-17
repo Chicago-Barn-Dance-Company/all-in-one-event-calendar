@@ -230,6 +230,8 @@ class Ai1ec_Command_Clone extends Ai1ec_Command {
             wp_update_post( $new_post );
         }
 
+        $this->_cbdc_clone_behavior($new_post_id, $post);
+
         return $new_post_id;
     }
 
@@ -348,6 +350,48 @@ class Ai1ec_Command_Clone extends Ai1ec_Command {
                 wp_set_object_terms( $new_id, $terms, $taxonomy );
             }
         }
+    }
+
+    /**
+     * CBDC mod: when cloning, advance date 4 weeks, clear description, reset
+     * publication date
+     */
+    protected function _cbdc_clone_behavior($new_id, $post) {
+        // Clear the post content, reset pub date to now
+        $now = current_time('mysql');
+        $update = array(
+            'ID'             => $new_id,
+            'post_date'      => $now,
+            'post_date_gmt'  => get_gmt_from_date($now),
+            'post_content'   => "",
+        );
+        wp_update_post($update);
+
+        // Scoot the start and end datetimes 4 weeks out. There's probably a
+        // better way, but man, I do not care enough to find it, and this works.
+        global $wpdb;
+        $query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}ai1ec_events WHERE post_id = %s", $new_id);
+        $event_row = $wpdb->get_row($query);
+
+        $tz = new DateTimeZone($event_row->timezone_name);
+        $old_start_datetime = (new DateTimeImmutable("", $tz))->setTimestamp($event_row->start);
+
+        $new_start_datetime = $old_start_datetime->add(new DateInterval("P28D"));
+        $new_start_timestamp = $new_start_datetime->getTimestamp(); // ai1ec stores GMT
+
+        $old_end_datetime = (new DateTimeImmutable("", $tz))->setTimestamp($event_row->end);
+        $old_duration = $old_start_datetime->diff($old_end_datetime);
+        $new_end_datetime = $new_start_datetime->add($old_duration);
+
+        $new_end_timestamp = $new_end_datetime->getTimestamp(); // ai1ec stores GMT
+        
+        $wpdb->update(
+            "{$wpdb->prefix}ai1ec_events",
+            array("start" => $new_start_timestamp, "end" => $new_end_timestamp),
+            array("post_id" => $new_id),
+            "%d",
+            "%d",
+        );
     }
 
     /**
