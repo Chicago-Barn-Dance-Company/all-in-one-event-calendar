@@ -297,11 +297,20 @@ class Ai1ec_Calendar_View_Agenda extends Ai1ec_Calendar_View_Abstract {
             
             $caller = get_post_meta($event->get('post_id'), 'Caller', true);
             $band = get_post_meta($event->get('post_id'), 'Band', true);
-            if (empty($band) || empty($caller)) {
-               $event_props['filtered_title'] = $event->get('filtered_title');
+            $event_title = $event->get_runtime( 'filtered_title' ) ;
+            if (empty($band) && empty($caller)) {
+                $filtered_title = $event_title;
             } else {
-               $event_props['filtered_title'] = "{$band} with {$caller}";
+                if (!empty($band) && !empty($caller)) {
+                    $filtered_title = "$band with $caller";
+                } else {
+                    $filtered_title = "$band$caller";
+                }
+                if ( similar_text($band, $event_title) < strlen($event_title) / 2 ) {
+                    $filtered_title = "$event_title — $filtered_title";
+                }
             }
+            $event_props['filtered_title'] = $filtered_title;
 
             $event_props['edit_post_link']      = $event->get_runtime( 'edit_post_link' );
             $event_props['content_img_url']     = $event->get_runtime( 'content_img_url' );

@@ -359,9 +359,22 @@ class Ai1ec_Calendar_View_Month extends Ai1ec_Calendar_View_Abstract {
                 $band = get_post_meta($evt->get('post_id'), 'Band', true);
                 $caller = get_post_meta($evt->get('post_id'), 'Caller', true);
                 $location_alias = get_post_meta($evt->get('post_id'), 'location_alias', true);
+                $event_title = $evt->get_runtime( 'filtered_title' ) ;
+                if (empty($band) && empty($caller)) {
+                    $filtered_title = $event_title;
+                } else {
+                    if (!empty($band) && !empty($caller)) {
+                        $filtered_title = "$band with $caller";
+                    } else {
+                        $filtered_title = "$band$caller";
+                    }
+                    if ( similar_text($band, $event_title) < strlen($event_title) / 2 ) {
+                        $filtered_title = "$event_title — $filtered_title";
+                    }
+                }
                 $event_data = array(
                     'location_alias'     => $location_alias,
-                    'filtered_title'     => (empty($band) || empty($caller)) ? $evt->get_runtime( 'filtered_title' ) : "$band with $caller",
+                    'filtered_title'     => $filtered_title,
                     'post_excerpt'       => $evt->get_runtime( 'post_excerpt' ),
                     'color_style'        => $evt->get_runtime( 'color_style' ),
                     'category_colors'    => $evt->get_runtime( 'category_colors' ),
